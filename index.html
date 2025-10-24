@@ -493,6 +493,15 @@
             gameRunning = true;
             character = document.getElementById('character');
             updatePhaseDisplay();
+            
+            // Make sure speech bubbles are visible on start
+            setTimeout(() => {
+                const char1Bubble = document.getElementById('char1-bubble');
+                const char2Bubble = document.getElementById('char2-bubble');
+                if (char1Bubble) char1Bubble.classList.add('active');
+                if (char2Bubble) char2Bubble.classList.add('active');
+            }, 100);
+            
             console.log('Implementation Journey started!');
         }
         
