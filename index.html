@@ -118,13 +118,14 @@
             
             #game-area {
                 max-width: 100% !important;
+                min-width: 420px !important;
                 height: 200px !important;
                 overflow-x: auto !important;
             }
             
             #progress-path {
                 left: 40px !important;
-                right: 40px !important;
+                right: 60px !important;
             }
             
             .milestone {
@@ -523,7 +524,14 @@
                 
                 // Enhanced character movement with jump animation
                 if (character) {
-                    const milestonePositions = [60, 120, 200, 280, 360, 440];
+                    // Detect if mobile view (screen width <= 768px)
+                    const isMobile = window.innerWidth <= 768;
+                    
+                    // Different positions for mobile vs desktop
+                    const milestonePositions = isMobile 
+                        ? [40, 100, 160, 220, 280, 340]  // Mobile positions
+                        : [60, 120, 200, 280, 360, 440]; // Desktop positions
+                    
                     const newPosition = milestonePositions[Math.min(currentPhase - 1, milestonePositions.length - 1)];
                     
                     // Add jump animation
@@ -588,9 +596,11 @@
             currentPhase = 1;
             gameRunning = true;
             
-            // Reset character position
+            // Reset character position based on screen size
             if (character) {
-                character.style.left = '80px';
+                const isMobile = window.innerWidth <= 768;
+                const startPosition = isMobile ? '40px' : '60px';
+                character.style.left = startPosition;
                 character.style.transition = 'left 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
             }
             
