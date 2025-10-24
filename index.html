@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jenna Chitla - Personal Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Character Animations */
+        @keyframes jump {
+            0% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-15px) scale(1.1); }
+            100% { transform: translateY(0px) scale(1); }
+        }
+        
+        @keyframes celebrate {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+        
+        @keyframes confetti {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-50px) rotate(360deg); opacity: 0; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .character-jump {
+            animation: jump 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .milestone-highlight {
+            animation: pulse 0.5s ease-in-out;
+            background: linear-gradient(135deg, #ffb3ba 0%, #ff9a9e 100%) !important;
+            color: white !important;
+            box-shadow: 0 4px 12px rgba(255, 179, 186, 0.4);
+        }
+        
+        #retry-btn:hover {
+            background: linear-gradient(135deg, #7fb3d3 0%, #5a9bc4 100%) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(127, 179, 211, 0.4);
+        }
+        
+        .speech-bubble.active {
+            opacity: 1 !important;
+            transform: translateY(0px) !important;
+        }
+        
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            width: 0;
+            height: 0;
+        }
+        
+        #char1-bubble::before {
+            left: 20px;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #ff9a9e;
+        }
+        
+        #char2-bubble::before {
+            right: 20px;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #7fb3d3;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .hero > div > div {
+                flex-direction: column !important;
+                gap: 20px !important;
+            }
+            
+            .hero > div > div > div:first-child {
+                flex: none !important;
+                width: 100% !important;
+            }
+            
+            .hero > div > div > div:last-child {
+                flex: none !important;
+                width: 100% !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero > div {
+                padding: 20px !important;
+                margin: 0 15px 40px 15px !important;
+            }
+            
+            #game-area {
+                max-width: 100% !important;
+                height: 150px !important;
+            }
+            
+            .milestone {
+                font-size: 10px !important;
+                padding: 6px 8px !important;
+                width: 60px !important;
+            }
+            
+            #character {
+                width: 30px !important;
+                height: 30px !important;
+                font-size: 16px !important;
+            }
+            
+            #journey-title {
+                font-size: 24px !important;
+            }
+            
+            .hero > div > div > div:first-child > div:first-child {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 15px !important;
+            }
+            
+            .hero > div > div > div:first-child > div:first-child > div:last-child {
+                margin-left: 0 !important;
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 10px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero > div {
+                padding: 15px !important;
+                margin: 0 10px 30px 10px !important;
+            }
+            
+            #journey-title {
+                font-size: 20px !important;
+            }
+            
+            .hero > div > div > div:last-child > h3 {
+                font-size: 20px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" style="background: #ffffff; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid #f0f0f0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; height: 60px; padding: 0 15px; margin: 0;">
+            <ul style="display: flex; list-style: none; gap: 1.5rem; margin: 0; padding: 0; padding-left: 0;">
+                <li>
+                    <a href="#home" style="color: #1a1a1a; text-decoration: none; font-weight: 500; transition: color 0.3s ease;">Home</a>
+                </li>
+                <li>
+                    <a href="#about" style="color: #1a1a1a; text-decoration: none; font-weight: 500; transition: color 0.3s ease;">About</a>
+                </li>
+                <li>
+                    <a href="#projects" style="color: #1a1a1a; text-decoration: none; font-weight: 500; transition: color 0.3s ease;">Projects</a>
+                </li>
+                <li>
+                    <a href="#contact" style="color: #1a1a1a; text-decoration: none; font-weight: 500; transition: color 0.3s ease;">Contact</a>
+                </li>
+            </ul>
+            <div class="hamburger" style="display: none;">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Personal Greeting -->
+    <div style="display: flex; justify-content: center; align-items: center; padding: 100px 0 40px 0; background: #ffffff; min-height: 200px;">
+        <h1 style="margin: 0; color: #2d3748; font-size: 36px; font-weight: 700; line-height: 1.4; text-align: center;">Hi, I'm Jenna!</h1>
+    </div>
+
+    <!-- Implementation Journey Section -->
+    <section id="home" class="hero" style="padding: 0; margin: 0;">
+        <div style="width: 100%; max-width: 100vw; background: linear-gradient(135deg, #f8f9ff 0%, #e8f2ff 100%); border: 2px solid #b8d4f0; border-radius: 12px; padding: 30px; box-sizing: border-box; margin-bottom: 60px; box-shadow: 0 8px 32px rgba(184, 212, 240, 0.2);">
+            <div style="display: flex; gap: 30px; max-width: 1400px; margin: 0 auto; flex-wrap: wrap;">
+                <!-- Left Side: Game Area -->
+                <div style="flex: 1; min-width: 0;">
+                    <!-- Game Header -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                        <h2 id="journey-title" style="margin: 0; color: #4a5568; font-size: 28px; font-weight: 600; line-height: 1.2; flex-shrink: 0;">Implementation Journey</h2>
+                        <div style="display: flex; align-items: center; gap: 20px; flex-shrink: 0; margin-left: 40px;">
+                            <div id="current-phase" style="background: linear-gradient(135deg, #a8d8ea 0%, #7fb3d3 100%); color: white; padding: 6px 12px; border-radius: 6px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 12px rgba(127, 179, 211, 0.3); white-space: nowrap;">Client Kickoff</div>
+                            <p style="margin: 0; color: #718096; font-size: 16px; white-space: nowrap;">Click or press SPACE to advance</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Game Area -->
+                    <div id="game-area" style="position: relative; height: 180px; background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%); border: 2px solid #d1e7dd; border-radius: 12px; overflow: hidden; cursor: pointer; box-shadow: 0 4px 20px rgba(209, 231, 221, 0.3);">
+                        <!-- Progress Path -->
+                        <div id="progress-path" style="position: absolute; top: 70px; left: 60px; right: 60px; height: 3px; background: linear-gradient(90deg, #a8d8ea 0%, #7fb3d3 100%); border-radius: 2px; z-index: 1;"></div>
+                        
+                        <!-- Character -->
+                        <div id="character" style="position: absolute; left: 60px; top: 50px; width: 35px; height: 35px; background: linear-gradient(135deg, #ffb3ba 0%, #ff9a9e 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 12px rgba(255, 179, 186, 0.4); cursor: pointer; z-index: 10;">🚀</div>
+                        
+                        <!-- Implementation Milestones -->
+                        <div id="milestone-1" class="milestone" style="position: absolute; left: 120px; top: 50px; background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); color: #5a6c7d; padding: 6px 10px; border-radius: 6px; font-size: 10px; font-weight: 600; text-align: center; width: 60px; transition: all 0.3s ease; border: 1px solid #d1e7dd;" title="🔍 Learning about client goals and requirements">🔍 Discovery</div>
+                        <div id="milestone-2" class="milestone" style="position: absolute; left: 200px; top: 50px; background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); color: #5a6c7d; padding: 6px 10px; border-radius: 6px; font-size: 10px; font-weight: 600; text-align: center; width: 60px; transition: all 0.3s ease; border: 1px solid #d1e7dd;" title="⚙️ Setting up the platform and integrations">⚙️ Config</div>
+                        <div id="milestone-3" class="milestone" style="position: absolute; left: 280px; top: 50px; background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); color: #5a6c7d; padding: 6px 10px; border-radius: 6px; font-size: 10px; font-weight: 600; text-align: center; width: 60px; transition: all 0.3s ease; border: 1px solid #d1e7dd;" title="🧪 Validating functionality and user acceptance">🧪 Testing</div>
+                        <div id="milestone-4" class="milestone" style="position: absolute; left: 360px; top: 50px; background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); color: #5a6c7d; padding: 6px 10px; border-radius: 6px; font-size: 10px; font-weight: 600; text-align: center; width: 60px; transition: all 0.3s ease; border: 1px solid #d1e7dd;" title="🎓 Teaching the team how to use the system">🎓 Training</div>
+                        <div id="milestone-5" class="milestone" style="position: absolute; left: 440px; top: 50px; background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); color: #5a6c7d; padding: 6px 10px; border-radius: 6px; font-size: 10px; font-weight: 600; text-align: center; width: 60px; transition: all 0.3s ease; border: 1px solid #d1e7dd;" title="🚀 Going live and celebrating success!">🚀 Launch</div>
+                        
+                        <!-- Score -->
+                        <div style="position: absolute; top: 10px; left: 10px; background: linear-gradient(135deg, #a8d8ea 0%, #7fb3d3 100%); color: white; padding: 8px 12px; border-radius: 6px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 12px rgba(127, 179, 211, 0.3);">
+                            Phase: <span id="score">1</span>/5
+                        </div>
+                        
+                        <!-- Instructions -->
+                        <div style="position: absolute; top: 10px; right: 10px; background: linear-gradient(135deg, #a8d8ea 0%, #7fb3d3 100%); color: white; padding: 8px 12px; border-radius: 6px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 12px rgba(127, 179, 211, 0.3);">
+                            SPACE to advance
+                        </div>
+                        
+                        <!-- Retry Button -->
+                        <button id="retry-btn" onclick="restartJourney()" style="position: absolute; top: 10px; right: 180px; background: linear-gradient(135deg, #a8d8ea 0%, #7fb3d3 100%); color: white; border: none; padding: 8px 12px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: none; box-shadow: 0 4px 12px rgba(127, 179, 211, 0.3);">
+                            🔄 Retry
+                        </button>
+                        
+                        <!-- Progress Bar -->
+                        <div style="position: absolute; bottom: 10px; left: 10px; right: 10px; height: 8px; background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); border-radius: 6px; overflow: hidden; border: 1px solid #d1e7dd;">
+                            <div id="progress" style="height: 100%; background: linear-gradient(90deg, #a8d8ea 0%, #7fb3d3 100%); width: 0%; transition: width 0.3s ease;"></div>
+                        </div>
+                    
+                    <!-- Ground -->
+                        <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 25px; background: linear-gradient(135deg, #d1e7dd 0%, #b8d4f0 100%);"></div>
+                        
+                        <!-- Celebration Animation -->
+                        <div id="celebration" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 20; display: none;">
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 36px; animation: celebrate 2s ease-out;">🎉</div>
+                            <div style="position: absolute; top: 30%; left: 30%; font-size: 18px; animation: confetti 1.5s ease-out 0.2s;">✨</div>
+                            <div style="position: absolute; top: 40%; right: 30%; font-size: 18px; animation: confetti 1.5s ease-out 0.4s;">🎊</div>
+                            <div style="position: absolute; top: 60%; left: 20%; font-size: 18px; animation: confetti 1.5s ease-out 0.6s;">🌟</div>
+                            <div style="position: absolute; top: 70%; right: 20%; font-size: 18px; animation: confetti 1.5s ease-out 0.8s;">🎈</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Side: Character Dialogue -->
+                <div style="flex: 1; min-width: 0;">
+                    <h3 style="margin: 0 0 20px 0; color: #4a5568; font-size: 24px; font-weight: 600; text-align: center;">Live Conversation</h3>
+                    
+                    <!-- Character 1 (Consultant) -->
+                    <div style="display: flex; align-items: flex-start; margin-bottom: 20px;">
+                        <div style="margin-right: 12px; flex-shrink: 0;">
+                            <div id="char1-avatar" style="font-size: 24px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #ffb3ba 0%, #ff9a9e 100%); border-radius: 50%; box-shadow: 0 4px 12px rgba(255, 179, 186, 0.3);">👩‍💻</div>
+                        </div>
+                        <div id="char1-bubble" class="speech-bubble" style="background: linear-gradient(135deg, #ffb3ba 0%, #ff9a9e 100%); color: white; padding: 10px 15px; border-radius: 15px; border-bottom-left-radius: 3px; flex: 1; position: relative; opacity: 0; transform: translateY(10px); transition: all 0.5s ease;">
+                            <p id="char1-text" style="margin: 0; font-size: 14px; line-height: 1.4;">🎯 Time to meet your new client! This is where we get to know each other, understand their goals, and set expectations for the journey ahead.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Character 2 (Client) -->
+                    <div style="display: flex; align-items: flex-start; justify-content: flex-end;">
+                        <div id="char2-bubble" class="speech-bubble" style="background: linear-gradient(135deg, #a8d8ea 0%, #7fb3d3 100%); color: white; padding: 10px 15px; border-radius: 15px; border-bottom-right-radius: 3px; flex: 1; position: relative; margin-right: 12px; opacity: 0; transform: translateY(10px); transition: all 0.5s ease;">
+                            <p id="char2-text" style="margin: 0; font-size: 14px; line-height: 1.4;">I'm excited to work with you! I've heard great things about your implementation process.</p>
+                        </div>
+                        <div style="margin-left: 12px; flex-shrink: 0;">
+                            <div id="char2-avatar" style="font-size: 24px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #a8d8ea 0%, #7fb3d3 100%); border-radius: 50%; box-shadow: 0 4px 12px rgba(127, 179, 211, 0.3);">🧑‍💼</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about" style="padding: 80px 0; background: #ffffff;">
+        <div class="container" style="max-width: 1000px; margin: 0 auto; padding: 0 40px;">
+            <h2 class="section-title" style="font-size: 2.5rem; font-weight: 600; margin-bottom: 3rem; color: #1a1a1a; text-align: center;">About Me</h2>
+            <div class="about-content" style="max-width: 800px; margin: 0 auto;">
+                <p style="font-size: 1.1rem; color: #666666; margin-bottom: 2rem; line-height: 1.7;">I'm an Implementation Specialist who helps enterprise clients bring SaaS products to life, and make them thrive post-launch! I love making technology click for people. Every implementation feels like a puzzle to me, and the fun part is figuring out how all the pieces fit together for each client.</p>
+                <p style="font-size: 1.1rem; color: #666666; margin-bottom: 2rem; line-height: 1.7;">Over the years, I've led end-to-end SaaS implementations across industries, from restaurant technology at Olo to digital signage and employee communications at Poppulo. My experience spans everything from client discovery and requirements gathering to configuration, QA testing, and training. I work cross-functionally with product, engineering, and customer success teams to ensure every rollout is smooth and scalable.</p>
+                <p style="font-size: 1.1rem; color: #666666; margin-bottom: 2rem; line-height: 1.7;">I've guided dozens of enterprise clients through complex deployments, building workflows, cleaning data, setting up integrations, and creating documentation that empowers users to manage their platforms confidently post-launch! Whether it's launching a digital signage network across hundreds of locations or streamlining a restaurant's guest experience, I bring a mix of technical problem-solving and customer empathy to every project.</p>
+                <p style="font-size: 1.1rem; color: #666666; margin-bottom: 0; line-height: 1.7;">On the side, I'm building HighTicketHer, an AI-powered platform helping women break into high-ticket sales. After seeing how difficult it can be to find legitimate roles online, I decided to create the solution myself, diving deep into no-code tools, AI prompting, and creative content strategy to bring it to life.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects" style="padding: 80px 0; background: #f8f9fa;">
+        <div class="container" style="max-width: 1000px; margin: 0 auto; padding: 0 40px;">
+            <h2 class="section-title" style="font-size: 2.5rem; font-weight: 600; margin-bottom: 3rem; color: #1a1a1a; text-align: center;">My Projects</h2>
+            <div class="projects-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 3rem; margin-top: 2rem;">
+                <div class="project-card" style="background: white; border: 2px solid #e9ecef; border-radius: 12px; overflow: hidden; transition: border-color 0.2s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="project-image" style="height: 250px; background: #f8f9fa; display: flex; align-items: center; justify-content: center;">
+                        <img src="hightickether-screenshot.png" alt="HighTicketHer Platform Screenshot" class="project-screenshot" style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;">
+                    </div>
+                    <div class="project-content" style="padding: 2rem;">
+                        <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: #1a1a1a;">HighTicketHer</h3>
+                        <p style="color: #666666; margin-bottom: 1.5rem; line-height: 1.5; font-size: 0.95rem;">An AI-powered platform that helps women break into high-ticket sales. Built as a side project to solve the problem of people struggling to find real offers online. Constantly experimenting with new tools, learning no-code building, AI prompting, automation, and creative content strategy.</p>
+                        <div class="project-links" style="display: flex; gap: 1rem;">
+                            <a href="#" class="project-link" style="color: #495057; text-decoration: none; font-weight: 500; transition: color 0.3s ease;">Coming Soon</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card" style="background: white; border: 2px solid #e9ecef; border-radius: 12px; overflow: hidden; transition: border-color 0.2s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="project-image" style="height: 250px; background: #f8f9fa; display: flex; align-items: center; justify-content: center;">
+                        <div class="idea-animation" style="text-align: center;">
+                            <div class="person" style="margin-bottom: 20px;">
+                                <div class="head" style="width: 40px; height: 40px; background: #495057; border-radius: 50%; margin: 0 auto 10px;"></div>
+                                <div class="body" style="width: 30px; height: 40px; background: #495057; border-radius: 8px; margin: 0 auto;"></div>
+                            </div>
+                            <div class="lightbulb-moment" style="margin-bottom: 15px;">
+                                <div class="lightbulb" style="width: 50px; height: 60px; position: relative; margin: 0 auto;">
+                                    <div class="bulb" style="width: 40px; height: 40px; background: #fbbf24; border-radius: 50%; position: absolute; top: 0; left: 5px; box-shadow: 0 0 15px rgba(251, 191, 36, 0.6);"></div>
+                                    <div class="base" style="width: 25px; height: 15px; background: #64748b; border-radius: 3px; position: absolute; bottom: 0; left: 12px;"></div>
+                                </div>
+                                <div class="idea-text" style="font-size: 1.5rem; margin-top: 10px;">💡</div>
+                            </div>
+                            <div class="solution-text" style="color: #666666; font-size: 0.9rem;">
+                                <div style="display: block; margin-bottom: 2px;">Making it click</div>
+                                <div style="display: block;">for clients</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content" style="padding: 2rem;">
+                        <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: #1a1a1a;">Enterprise SaaS Implementations</h3>
+                        <p style="color: #666666; margin-bottom: 1.5rem; line-height: 1.5; font-size: 0.95rem;">Led end-to-end SaaS implementations for enterprise clients at Olo and Poppulo. Managed discovery, requirements gathering, configuration, testing, and deployment. Acted as primary client contact to ensure timely, aligned launches across restaurant and digital signage industries.</p>
+                        <div class="project-links" style="display: flex; gap: 1rem;">
+                            <a href="https://www.olo.com/" class="project-link" style="color: #495057; text-decoration: none; font-weight: 500; transition: color 0.3s ease;" target="_blank">Olo</a>
+                            <a href="https://www.poppulo.com/" class="project-link" style="color: #495057; text-decoration: none; font-weight: 500; transition: color 0.3s ease;" target="_blank">Poppulo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact" style="padding: 80px 0; background: #ffffff;">
+        <div class="container" style="max-width: 800px; margin: 0 auto; padding: 0 40px;">
+            <h2 class="section-title" style="font-size: 2.5rem; font-weight: 600; margin-bottom: 3rem; color: #1a1a1a; text-align: center;">Get In Touch</h2>
+            <div class="contact-content" style="text-align: center;">
+                <p style="font-size: 1.1rem; color: #666666; margin-bottom: 3rem; line-height: 1.7;">I'd love to hear from you! Whether you have a question about SaaS implementations, want to collaborate on a project, or just want to say hello, feel free to reach out.</p>
+                <div class="contact-details" style="display: flex; flex-direction: column; gap: 1.5rem; align-items: center;">
+                    <div class="contact-item" style="font-size: 1.1rem; color: #666666;">
+                        <strong style="color: #495057;">Email:</strong> jchitla@gmail.com
+                    </div>
+                    <div class="contact-item" style="font-size: 1.1rem; color: #666666;">
+                        <strong style="color: #495057;">Education:</strong> North Carolina State University - Science, Technology, and Society B.S.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Jenna Chitla. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Implementation Journey Game
+        let currentPhase = 1;
+        let gameRunning = false;
+        let character = null;
+        
+        const phases = [
+            { 
+                name: 'Client Kickoff', 
+                description: '🎯 Time to meet your new client! This is where we get to know each other, understand their goals, and set expectations for the journey ahead.',
+                funDesc: 'First impressions matter! We\'re laying the foundation for a successful partnership.',
+                char1Avatar: '👩‍💻',
+                char1Text: '🎯 Welcome! I\'m excited to help you implement this solution. Let\'s start by understanding your goals and current processes.',
+                char2Avatar: '🧑‍💼',
+                char2Text: 'Thank you! I\'ve heard great things about your implementation process. I\'m looking forward to working together.'
+            },
+            { 
+                name: 'Discovery', 
+                description: '🔍 Let\'s dig deep! We\'re mapping out their current processes, pain points, and dreams. Think of it as detective work for business optimization.',
+                funDesc: 'Time to put on our detective hats and uncover what makes their business tick!',
+                char1Avatar: '👩‍💻',
+                char1Text: '🔍 Now let\'s dive deep into your current workflow. What are your biggest pain points and what would success look like for you?',
+                char2Avatar: '🧑‍💼',
+                char2Text: 'Great question! Our main challenge is manual data entry taking up too much time. We need something that automates our daily processes.'
+            },
+            { 
+                name: 'Configuration', 
+                description: '⚙️ The magic happens here! We\'re customizing the platform, setting up integrations, and making everything work seamlessly together.',
+                funDesc: 'Like a master chef, we\'re preparing the perfect recipe for their success!',
+                char1Avatar: '👩‍💻',
+                char1Text: '⚙️ Perfect! I\'m setting up your custom workflows and integrations. This will automate exactly what you need.',
+                char2Avatar: '🧑‍💼',
+                char2Text: 'This looks amazing! I can already see how this will save us hours every week. The interface is so intuitive.'
+            },
+            { 
+                name: 'Testing', 
+                description: '🧪 Quality time! We\'re putting everything through its paces, making sure it works flawlessly before the big day.',
+                funDesc: 'Time to break things (safely) so we can fix them before launch!',
+                char1Avatar: '👩‍💻',
+                char1Text: '🧪 Let\'s test everything thoroughly! I want to make sure every feature works perfectly for your team.',
+                char2Avatar: '🧑‍💼',
+                char2Text: 'I love how we can test this in a safe environment first. It gives me confidence for the real launch!'
+            },
+            { 
+                name: 'Training', 
+                description: '🎓 Knowledge transfer time! We\'re teaching the team everything they need to know to rock this new system.',
+                funDesc: 'From zero to hero - we\'re turning your team into platform experts!',
+                char1Avatar: '👩‍💻',
+                char1Text: '🎓 Time to train your team! I\'ll make sure everyone feels confident using the new system.',
+                char2Avatar: '🧑‍💼',
+                char2Text: 'The training was fantastic! My team is excited and ready to go. They feel like experts already!'
+            },
+            { 
+                name: 'Launch', 
+                description: '🚀 Blast off! We\'re going live and celebrating the successful completion of your implementation journey.',
+                funDesc: 'The moment we\'ve all been waiting for - time to launch and celebrate!',
+                char1Avatar: '👩‍💻',
+                char1Text: '🚀 Congratulations! You\'re officially live! I\'ll be here to support you as you start using your new system.',
+                char2Avatar: '🧑‍💼',
+                char2Text: 'This is incredible! We\'re already seeing results. Thank you for making this implementation so smooth and successful!'
+            }
+        ];
+        
+        function startGame() {
+            gameRunning = true;
+            character = document.getElementById('character');
+            updatePhaseDisplay();
+            console.log('Implementation Journey started!');
+        }
+        
+        function flap() {
+            if (gameRunning && currentPhase < phases.length) {
+                // Move to next phase
+                currentPhase += 1;
+                updatePhaseDisplay();
+                
+                // Enhanced character movement with jump animation
+                if (character) {
+                    const milestonePositions = [60, 120, 200, 280, 360, 440];
+                    const newPosition = milestonePositions[Math.min(currentPhase - 1, milestonePositions.length - 1)];
+                    
+                    // Add jump animation
+                    character.classList.add('character-jump');
+                    setTimeout(() => {
+                        character.classList.remove('character-jump');
+                    }, 600);
+                    
+                    // Smooth movement
+                    character.style.left = newPosition + 'px';
+                    character.style.transition = 'left 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                }
+                
+                // Highlight current milestone
+                const currentMilestone = document.getElementById(`milestone-${currentPhase - 1}`);
+                if (currentMilestone) {
+                    currentMilestone.classList.add('milestone-highlight');
+                    setTimeout(() => {
+                        currentMilestone.classList.remove('milestone-highlight');
+                        currentMilestone.style.background = '#495057';
+                        currentMilestone.style.color = 'white';
+                    }, 500);
+                }
+                
+                // Check for completion and trigger celebration
+                if (currentPhase === phases.length) {
+                    setTimeout(() => {
+                        triggerCelebration();
+                    }, 800);
+                }
+                
+                console.log('Advanced to phase:', currentPhase, phases[currentPhase - 1].name);
+            }
+        }
+        
+        function triggerCelebration() {
+            const celebration = document.getElementById('celebration');
+            const retryBtn = document.getElementById('retry-btn');
+            
+            if (celebration) {
+                celebration.style.display = 'block';
+                setTimeout(() => {
+                    celebration.style.display = 'none';
+                }, 3000);
+            }
+            
+            // Show retry button after celebration
+            if (retryBtn) {
+                setTimeout(() => {
+                    retryBtn.style.display = 'block';
+                }, 2000);
+            }
+        }
+        
+        function restartJourney() {
+            // Reset all game state
+            currentPhase = 1;
+            gameRunning = true;
+            
+            // Reset character position
+            if (character) {
+                character.style.left = '80px';
+                character.style.transition = 'left 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            }
+            
+            // Reset all milestones to original state
+            for (let i = 1; i <= 5; i++) {
+                const milestone = document.getElementById(`milestone-${i}`);
+                if (milestone) {
+                    milestone.style.background = '#e9ecef';
+                    milestone.style.color = '#6c757d';
+                    milestone.classList.remove('milestone-highlight');
+                }
+            }
+            
+            // Hide retry button
+            const retryBtn = document.getElementById('retry-btn');
+            if (retryBtn) {
+                retryBtn.style.display = 'none';
+            }
+            
+            // Reset progress bar
+            const progressElement = document.getElementById('progress');
+            if (progressElement) {
+                progressElement.style.width = '0%';
+            }
+            
+            // Update display
+            updatePhaseDisplay();
+            
+            console.log('Journey restarted!');
+        }
+        
+        function updatePhaseDisplay() {
+            const phaseElement = document.getElementById('current-phase');
+            const scoreElement = document.getElementById('score');
+            const progressElement = document.getElementById('progress');
+            
+            if (phaseElement && currentPhase <= phases.length) {
+                phaseElement.textContent = phases[currentPhase - 1].name;
+            }
+            
+            if (scoreElement) {
+                // Adjust phase number display: Client Kickoff (currentPhase 1) is unnumbered, Discovery (currentPhase 2) is 1, etc.
+                if (currentPhase === 1) {
+                    scoreElement.textContent = ''; // No number for Client Kickoff
+                } else {
+                    scoreElement.textContent = currentPhase - 1; // Discovery is 1, Configuration is 2, etc.
+                }
+            }
+            
+            if (progressElement) {
+                const totalNumberedPhases = phases.length - 1; // Total phases to be numbered (Discovery to Launch)
+                let progress = 0;
+                if (currentPhase > 1) {
+                    progress = ((currentPhase - 1) / totalNumberedPhases) * 100;
+                }
+                progressElement.style.width = progress + '%';
+            }
+            
+            // Update character dialogue
+            if (currentPhase <= phases.length) {
+                const currentPhaseData = phases[currentPhase - 1];
+                
+                // Update character avatars
+                const char1Avatar = document.getElementById('char1-avatar');
+                const char2Avatar = document.getElementById('char2-avatar');
+                if (char1Avatar) char1Avatar.textContent = currentPhaseData.char1Avatar;
+                if (char2Avatar) char2Avatar.textContent = currentPhaseData.char2Avatar;
+                
+                // Update dialogue text
+                const char1Text = document.getElementById('char1-text');
+                const char2Text = document.getElementById('char2-text');
+                if (char1Text) char1Text.textContent = currentPhaseData.char1Text;
+                if (char2Text) char2Text.textContent = currentPhaseData.char2Text;
+                
+                // Animate speech bubbles
+                const char1Bubble = document.getElementById('char1-bubble');
+                const char2Bubble = document.getElementById('char2-bubble');
+                
+                // Reset and animate
+                if (char1Bubble && char2Bubble) {
+                    char1Bubble.classList.remove('active');
+                    char2Bubble.classList.remove('active');
+                    
+                    setTimeout(() => {
+                        char1Bubble.classList.add('active');
+                    }, 200);
+                    
+                    setTimeout(() => {
+                        char2Bubble.classList.add('active');
+                    }, 600);
+                }
+            }
+        }
+        
+        // Event listeners
+        document.addEventListener('keydown', function(e) {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                flap();
+            }
+        });
+        
+        // Make the entire game area clickable
+        document.addEventListener('click', function(e) {
+            const gameArea = document.getElementById('game-area');
+            if (gameArea && gameArea.contains(e.target)) {
+                flap();
+            }
+        });
+        
+        // Auto-start game
+        document.addEventListener('DOMContentLoaded', function() {
+            startGame();
+        });
+        
+        // Also start when window loads
+        window.addEventListener('load', function() {
+            startGame();
+        });
+    </script>
+</body>
+</html>
