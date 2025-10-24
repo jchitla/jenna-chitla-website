@@ -112,29 +112,43 @@
         
         @media (max-width: 768px) {
             .hero > div {
-                padding: 20px !important;
-                margin: 0 15px 40px 15px !important;
+                padding: 20px 10px !important;
+                margin: 0 5px 40px 5px !important;
             }
             
             #game-area {
                 max-width: 100% !important;
-                height: 150px !important;
+                height: 200px !important;
+                overflow-x: auto !important;
+            }
+            
+            #progress-path {
+                left: 40px !important;
+                right: 40px !important;
             }
             
             .milestone {
-                font-size: 10px !important;
-                padding: 6px 8px !important;
-                width: 60px !important;
+                font-size: 9px !important;
+                padding: 4px 6px !important;
+                width: 50px !important;
+                white-space: nowrap !important;
             }
+            
+            #milestone-1 { left: 100px !important; }
+            #milestone-2 { left: 160px !important; }
+            #milestone-3 { left: 220px !important; }
+            #milestone-4 { left: 280px !important; }
+            #milestone-5 { left: 340px !important; }
             
             #character {
                 width: 30px !important;
                 height: 30px !important;
                 font-size: 16px !important;
+                left: 40px !important;
             }
             
             #journey-title {
-                font-size: 24px !important;
+                font-size: 20px !important;
             }
             
             .hero > div > div > div:first-child > div:first-child {
@@ -148,6 +162,11 @@
                 flex-direction: column !important;
                 align-items: flex-start !important;
                 gap: 10px !important;
+            }
+            
+            /* Mobile game area scrollable */
+            #game-area {
+                -webkit-overflow-scrolling: touch;
             }
         }
         
@@ -286,7 +305,7 @@
                         
                         <!-- Score -->
                         <div style="position: absolute; top: 10px; left: 10px; background: linear-gradient(135deg, #a8d8ea 0%, #7fb3d3 100%); color: white; padding: 8px 12px; border-radius: 6px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 12px rgba(127, 179, 211, 0.3);">
-                            Phase: <span id="score">1</span>/5
+                            Phase: <span id="score">0</span>/5
                         </div>
                         
                         <!-- Instructions -->
@@ -411,6 +430,7 @@
         let currentPhase = 1;
         let gameRunning = false;
         let character = null;
+        let isAdvancing = false; // Prevent double-clicks
         
         const phases = [
             { 
@@ -477,10 +497,16 @@
         }
         
         function flap() {
-            if (gameRunning && currentPhase < phases.length) {
-                // Move to next phase
-                currentPhase += 1;
-                updatePhaseDisplay();
+            // Prevent double-clicks/taps
+            if (isAdvancing || !gameRunning || currentPhase >= phases.length) {
+                return;
+            }
+            
+            isAdvancing = true;
+            
+            // Move to next phase
+            currentPhase += 1;
+            updatePhaseDisplay();
                 
                 // Enhanced character movement with jump animation
                 if (character) {
@@ -513,7 +539,13 @@
                 if (currentPhase === phases.length) {
                     setTimeout(() => {
                         triggerCelebration();
+                        isAdvancing = false;
                     }, 800);
+                } else {
+                    // Reset cooldown after animation completes
+                    setTimeout(() => {
+                        isAdvancing = false;
+                    }, 700);
                 }
                 
                 console.log('Advanced to phase:', currentPhase, phases[currentPhase - 1].name);
@@ -588,12 +620,8 @@
             }
             
             if (scoreElement) {
-                // Adjust phase number display: Client Kickoff (currentPhase 1) is unnumbered, Discovery (currentPhase 2) is 1, etc.
-                if (currentPhase === 1) {
-                    scoreElement.textContent = ''; // No number for Client Kickoff
-                } else {
-                    scoreElement.textContent = currentPhase - 1; // Discovery is 1, Configuration is 2, etc.
-                }
+                // Phase counter: Client Kickoff is 0, Discovery is 1, Config is 2, Testing is 3, Training is 4, Launch is 5
+                scoreElement.textContent = currentPhase - 1;
             }
             
             if (progressElement) {
