@@ -165,6 +165,35 @@
                 font-size: 20px !important;
             }
         }
+        
+        /* Mobile/Desktop Instruction Display */
+        @media (max-width: 768px) {
+            .desktop-instruction {
+                display: none !important;
+            }
+            
+            .mobile-instruction {
+                display: inline !important;
+            }
+            
+            #mobile-advance-btn {
+                display: block !important;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .desktop-instruction {
+                display: inline !important;
+            }
+            
+            .mobile-instruction {
+                display: none !important;
+            }
+            
+            #mobile-advance-btn {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -235,8 +264,14 @@
                         
                         <!-- Instructions -->
                         <div style="position: absolute; top: 10px; right: 10px; background: linear-gradient(135deg, #a8d8ea 0%, #7fb3d3 100%); color: white; padding: 8px 12px; border-radius: 6px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 12px rgba(127, 179, 211, 0.3);">
-                            SPACE to advance
+                            <span class="desktop-instruction">SPACE to advance</span>
+                            <span class="mobile-instruction" style="display: none;">Tap to advance</span>
                         </div>
+                        
+                        <!-- Mobile Arrow Button -->
+                        <button id="mobile-advance-btn" onclick="flap()" style="position: absolute; top: 10px; right: 180px; background: linear-gradient(135deg, #a8d8ea 0%, #7fb3d3 100%); color: white; border: none; padding: 8px 12px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: none; box-shadow: 0 4px 12px rgba(127, 179, 211, 0.3);">
+                            →
+                        </button>
                         
                         <!-- Retry Button -->
                         <button id="retry-btn" onclick="restartJourney()" style="position: absolute; top: 10px; right: 180px; background: linear-gradient(135deg, #a8d8ea 0%, #7fb3d3 100%); color: white; border: none; padding: 8px 12px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: none; box-shadow: 0 4px 12px rgba(127, 179, 211, 0.3);">
@@ -397,48 +432,48 @@
             },
             { 
                 name: 'Discovery', 
-                description: '🔍 Let\'s dig deep! We\'re mapping out their current processes, pain points, and dreams. Think of it as detective work for business optimization.',
-                funDesc: 'Time to put on our detective hats and uncover what makes their business tick!',
+                description: '🔍 Most clients come to me with scattered processes and manual workarounds. That\'s why I always start by mapping their current workflow - I need to see the full picture before we build anything.',
+                funDesc: 'I\'ve learned that what clients think they need isn\'t always what they actually need. Discovery is where the real magic happens!',
                 char1Avatar: '👩‍💻',
-                char1Text: '🔍 Now let\'s dive deep into your current workflow. What are your biggest pain points and what would success look like for you?',
+                char1Text: '🔍 I\'ve found that most teams have hidden inefficiencies they don\'t even realize. Let\'s map out your current process - I want to see how data flows through your organization.',
                 char2Avatar: '🧑‍💼',
-                char2Text: 'Great question! Our main challenge is manual data entry taking up too much time. We need something that automates our daily processes.'
+                char2Text: 'You\'re right - we\'ve been doing things the same way for years. I never thought about how much time we waste on manual steps.'
             },
             { 
                 name: 'Configuration', 
-                description: '⚙️ The magic happens here! We\'re customizing the platform, setting up integrations, and making everything work seamlessly together.',
-                funDesc: 'Like a master chef, we\'re preparing the perfect recipe for their success!',
+                description: '⚙️ This is where my technical background really shines. I don\'t just set up the platform - I build custom workflows that match how your team actually works, not how the software thinks you should work.',
+                funDesc: 'Every client is different, so I never use the same setup twice. This is where I get to be creative!',
                 char1Avatar: '👩‍💻',
-                char1Text: '⚙️ Perfect! I\'m setting up your custom workflows and integrations. This will automate exactly what you need.',
+                char1Text: '⚙️ I\'m building this specifically for your workflow. Most implementations fail because they force you to change how you work - I\'m doing the opposite.',
                 char2Avatar: '🧑‍💼',
-                char2Text: 'This looks amazing! I can already see how this will save us hours every week. The interface is so intuitive.'
+                char2Text: 'This is exactly how we need it to work! You\'ve thought of everything we didn\'t even know we needed.'
             },
             { 
                 name: 'Testing', 
-                description: '🧪 Quality time! We\'re putting everything through its paces, making sure it works flawlessly before the big day.',
-                funDesc: 'Time to break things (safely) so we can fix them before launch!',
+                description: '🧪 I\'ve learned that users will find ways to break things you never thought possible. That\'s why I test every scenario - including the weird edge cases that only happen in real life.',
+                funDesc: 'I break things so you don\'t have to! Better to find issues now than during your busy season.',
                 char1Avatar: '👩‍💻',
-                char1Text: '🧪 Let\'s test everything thoroughly! I want to make sure every feature works perfectly for your team.',
+                char1Text: '🧪 I\'m testing this like your most skeptical team member would. If I can break it, we need to fix it before you go live.',
                 char2Avatar: '🧑‍💼',
-                char2Text: 'I love how we can test this in a safe environment first. It gives me confidence for the real launch!'
+                char2Text: 'I love that you\'re thinking about the real-world scenarios. This gives me so much confidence!'
             },
             { 
                 name: 'Training', 
-                description: '🎓 Knowledge transfer time! We\'re teaching the team everything they need to know to rock this new system.',
-                funDesc: 'From zero to hero - we\'re turning your team into platform experts!',
+                description: '🎓 Most training sessions are boring and forgettable. I make mine interactive and practical - you\'ll actually remember what I teach you because you\'ll be doing it, not just watching.',
+                funDesc: 'I turn your team into power users, not just button-clickers. They\'ll be the ones teaching others!',
                 char1Avatar: '👩‍💻',
-                char1Text: '🎓 Time to train your team! I\'ll make sure everyone feels confident using the new system.',
+                char1Text: '🎓 I\'m not just showing you how to use this - I\'m teaching you why each feature matters for your business. You\'ll be the experts by the time we\'re done.',
                 char2Avatar: '🧑‍💼',
-                char2Text: 'The training was fantastic! My team is excited and ready to go. They feel like experts already!'
+                char2Text: 'This is the best training I\'ve ever had! My team is actually excited to use this system now.'
             },
             { 
                 name: 'Launch', 
-                description: '🚀 Blast off! We\'re going live and celebrating the successful completion of your implementation journey.',
-                funDesc: 'The moment we\'ve all been waiting for - time to launch and celebrate!',
+                description: '🚀 Launch day is my favorite part! I\'m there with you, not just watching from the sidelines. Most implementations feel like you\'re on your own after go-live - not with me.',
+                funDesc: 'The real work starts after launch. I\'m your partner, not just your vendor.',
                 char1Avatar: '👩‍💻',
-                char1Text: '🚀 Congratulations! You\'re officially live! I\'ll be here to support you as you start using your new system.',
+                char1Text: '🚀 You\'re officially live! But I\'m not going anywhere - I\'ll be here to support you as you start using this in your daily work.',
                 char2Avatar: '🧑‍💼',
-                char2Text: 'This is incredible! We\'re already seeing results. Thank you for making this implementation so smooth and successful!'
+                char2Text: 'Having you here on launch day makes all the difference. We\'re already seeing results and my team feels confident!'
             }
         ];
         
