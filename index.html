@@ -493,6 +493,14 @@
         function startGame() {
             gameRunning = true;
             character = document.getElementById('character');
+            
+            // Set initial character position based on screen size
+            if (character) {
+                const isMobile = window.innerWidth <= 768;
+                const startPosition = isMobile ? '40px' : '60px';
+                character.style.left = startPosition;
+            }
+            
             updatePhaseDisplay();
             
             // Make sure speech bubbles are visible on start
@@ -715,6 +723,21 @@
         // Also start when window loads
         window.addEventListener('load', function() {
             startGame();
+        });
+        
+        // Handle screen rotation and resizing
+        window.addEventListener('resize', function() {
+            if (character && gameRunning) {
+                const isMobile = window.innerWidth <= 768;
+                
+                // Update character position based on current phase and screen size
+                const milestonePositions = isMobile 
+                    ? [40, 100, 160, 220, 280, 340]  // Mobile positions
+                    : [60, 120, 200, 280, 360, 440]; // Desktop positions
+                
+                const newPosition = milestonePositions[Math.min(currentPhase - 1, milestonePositions.length - 1)];
+                character.style.left = newPosition + 'px';
+            }
         });
     </script>
 </body>
