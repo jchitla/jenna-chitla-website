@@ -194,6 +194,33 @@
                 display: none !important;
             }
         }
+        
+        /* HighTicketHer Mobile Responsive */
+        @media (max-width: 768px) {
+            .hightickether-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+            
+            .hightickether-image img {
+                max-width: 100% !important;
+                width: 100% !important;
+            }
+            
+            .hightickether-container {
+                padding: 1.5rem !important;
+                margin: 2rem 0 !important;
+            }
+            
+            .hightickether-content h3 {
+                font-size: 1.3rem !important;
+                text-align: center;
+            }
+            
+            .hightickether-content p {
+                font-size: 0.95rem !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -331,12 +358,12 @@
                 <p style="font-size: 1.1rem; color: #666666; margin-bottom: 2rem; line-height: 1.7;">Over the years, I've led end-to-end SaaS implementations across industries, from restaurant technology at Olo to digital signage and employee communications at Poppulo. My experience spans everything from client discovery and requirements gathering to configuration, QA testing, and training. I work cross-functionally with product, engineering, and customer success teams to ensure every rollout is smooth and scalable.</p>
                 
                 <!-- HighTicketHer Project -->
-                <div style="background: #f8f9fa; border-radius: 12px; padding: 2rem; margin: 3rem 0; border: 2px solid #e9ecef;">
-                    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: center;">
-                        <div style="text-align: center;">
+                <div class="hightickether-container" style="background: #f8f9fa; border-radius: 12px; padding: 2rem; margin: 3rem 0; border: 2px solid #e9ecef;">
+                    <div class="hightickether-grid" style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: center;">
+                        <div class="hightickether-image" style="text-align: center;">
                             <img src="hightickether-screenshot.png" alt="HighTicketHer Platform Screenshot" style="width: 100%; max-width: 300px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                         </div>
-                        <div>
+                        <div class="hightickether-content">
                             <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: #1a1a1a;">HighTicketHer</h3>
                             <p style="color: #666666; margin-bottom: 1.5rem; line-height: 1.5; font-size: 1rem;">An AI-powered platform that helps women break into high-ticket sales. Built as a side project to solve the problem of people struggling to find legitimate roles online. Constantly experimenting with new tools, learning no-code building, AI prompting, automation, and creative content strategy.</p>
                             <div style="display: flex; gap: 1rem;">
