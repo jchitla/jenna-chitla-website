@@ -497,9 +497,13 @@
         }
         
         function flap() {
-            // Prevent double-clicks/taps
-            if (isAdvancing || !gameRunning || currentPhase >= phases.length) {
+            // Prevent double-clicks/taps - but allow if game just started
+            if (!gameRunning || currentPhase >= phases.length) {
                 return;
+            }
+            
+            if (isAdvancing) {
+                return; // Skip if already advancing
             }
             
             isAdvancing = true;
@@ -545,7 +549,7 @@
                     // Reset cooldown after animation completes
                     setTimeout(() => {
                         isAdvancing = false;
-                    }, 700);
+                    }, 500);
                 }
                 
                 console.log('Advanced to phase:', currentPhase, phases[currentPhase - 1].name);
