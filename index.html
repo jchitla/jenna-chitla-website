@@ -187,32 +187,33 @@
             
             /* Even smaller positioning for portrait mode */
             #game-area {
-                min-width: 380px !important;
+                min-width: 500px !important;
                 height: 180px !important;
             }
             
             #progress-path {
-                left: 30px !important;
-                right: 50px !important;
+                left: 20px !important;
+                right: 40px !important;
             }
             
             .milestone {
                 font-size: 8px !important;
                 padding: 3px 5px !important;
-                width: 45px !important;
+                width: 50px !important;
+                overflow: visible !important;
             }
             
-            #milestone-1 { left: 85px !important; }
-            #milestone-2 { left: 140px !important; }
-            #milestone-3 { left: 195px !important; }
-            #milestone-4 { left: 250px !important; }
-            #milestone-5 { left: 305px !important; }
+            #milestone-1 { left: 90px !important; }
+            #milestone-2 { left: 170px !important; }
+            #milestone-3 { left: 250px !important; }
+            #milestone-4 { left: 330px !important; }
+            #milestone-5 { left: 410px !important; }
             
             #character {
-                width: 28px !important;
-                height: 28px !important;
+                width: 25px !important;
+                height: 25px !important;
                 font-size: 14px !important;
-                left: 30px !important;
+                left: 20px !important;
             }
         }
         
@@ -528,7 +529,7 @@
             if (character) {
                 let startPosition;
                 if (window.innerWidth <= 480) {
-                    startPosition = '30px'; // Portrait mobile
+                    startPosition = '20px'; // Portrait mobile
                 } else if (window.innerWidth <= 768) {
                     startPosition = '40px'; // Landscape mobile/tablet
                 } else {
@@ -571,7 +572,7 @@
                     // Different positions for portrait mobile, landscape mobile, and desktop
                     let milestonePositions;
                     if (window.innerWidth <= 480) {
-                        milestonePositions = [30, 85, 140, 195, 250, 305]; // Portrait mobile
+                        milestonePositions = [20, 90, 170, 250, 330, 410]; // Portrait mobile - spread out
                     } else if (window.innerWidth <= 768) {
                         milestonePositions = [40, 100, 160, 220, 280, 340]; // Landscape mobile/tablet
                     } else {
@@ -646,7 +647,7 @@
             if (character) {
                 let startPosition;
                 if (window.innerWidth <= 480) {
-                    startPosition = '30px'; // Portrait mobile
+                    startPosition = '20px'; // Portrait mobile
                 } else if (window.innerWidth <= 768) {
                     startPosition = '40px'; // Landscape mobile/tablet
                 } else {
@@ -775,7 +776,7 @@
                 // Update character position based on current phase and screen size
                 let milestonePositions;
                 if (window.innerWidth <= 480) {
-                    milestonePositions = [30, 85, 140, 195, 250, 305]; // Portrait mobile
+                    milestonePositions = [20, 90, 170, 250, 330, 410]; // Portrait mobile - spread out
                 } else if (window.innerWidth <= 768) {
                     milestonePositions = [40, 100, 160, 220, 280, 340]; // Landscape mobile/tablet
                 } else {
