@@ -65,6 +65,12 @@
             box-shadow: 0 6px 16px rgba(127, 179, 211, 0.4);
         }
         
+        .speech-bubble {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+        
         .speech-bubble.active {
             opacity: 1 !important;
             transform: translateY(0px) !important;
@@ -125,7 +131,7 @@
             
             #game-area {
                 max-width: 100% !important;
-                min-width: 420px !important;
+                min-width: 380px !important;
                 height: 200px !important;
                 overflow-x: auto !important;
             }
@@ -202,7 +208,7 @@
             
             /* Even smaller positioning for portrait mode */
             #game-area {
-                min-width: 500px !important;
+                min-width: 360px !important;
                 height: 180px !important;
             }
             
@@ -258,6 +264,119 @@
             
             #mobile-advance-btn {
                 display: none !important;
+            }
+        }
+        
+        /* Navbar Mobile Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 10px !important;
+            }
+            
+            .navbar ul {
+                gap: 1rem !important;
+            }
+            
+            .navbar li a {
+                font-size: 14px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0 5px !important;
+            }
+            
+            .navbar ul {
+                gap: 0.8rem !important;
+                padding-left: 5px !important;
+            }
+            
+            .navbar li a {
+                font-size: 13px !important;
+            }
+        }
+        
+        /* Speech Bubble Mobile Responsive */
+        @media (max-width: 768px) {
+            .speech-bubble {
+                max-width: 85% !important;
+            }
+            
+            .speech-bubble p {
+                font-size: 13px !important;
+                line-height: 1.5 !important;
+            }
+            
+            #char1-avatar, #char2-avatar {
+                width: 35px !important;
+                height: 35px !important;
+                font-size: 20px !important;
+            }
+            
+            .hero > div > div > div:last-child > h3 {
+                font-size: 20px !important;
+                margin-bottom: 15px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .speech-bubble {
+                max-width: 80% !important;
+                padding: 8px 12px !important;
+            }
+            
+            .speech-bubble p {
+                font-size: 12px !important;
+            }
+            
+            #char1-avatar, #char2-avatar {
+                width: 30px !important;
+                height: 30px !important;
+                font-size: 18px !important;
+            }
+            
+            .hero > div > div > div:last-child > h3 {
+                font-size: 18px !important;
+            }
+        }
+        
+        /* About & Contact Mobile Responsive */
+        @media (max-width: 768px) {
+            .about, .contact {
+                padding: 50px 0 !important;
+            }
+            
+            .about .container, .contact .container {
+                padding: 0 20px !important;
+            }
+            
+            .section-title {
+                font-size: 2rem !important;
+                margin-bottom: 2rem !important;
+            }
+            
+            .about-content p, .contact-content p {
+                font-size: 1rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            .contact-item {
+                font-size: 1rem !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .about, .contact {
+                padding: 40px 0 !important;
+            }
+            
+            .section-title {
+                font-size: 1.75rem !important;
+            }
+            
+            .about-content p, .contact-content p {
+                font-size: 0.95rem !important;
             }
         }
         
