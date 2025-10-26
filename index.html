@@ -595,6 +595,12 @@
                 character.style.left = '60px';
             }
             
+            // Ensure game area starts at the beginning
+            const gameArea = document.getElementById('game-area');
+            if (gameArea) {
+                gameArea.scrollLeft = 0;
+            }
+            
             updatePhaseDisplay();
             
             // Make sure speech bubbles are visible on start
@@ -639,6 +645,19 @@
                     // Smooth movement
                     character.style.left = newPosition + 'px';
                     character.style.transition = 'left 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                    
+                    // Auto-scroll to keep character in view
+                    const gameArea = document.getElementById('game-area');
+                    if (gameArea) {
+                        const characterWidth = character.offsetWidth;
+                        const containerWidth = gameArea.offsetWidth;
+                        const scrollPosition = newPosition - (containerWidth / 2) + (characterWidth / 2);
+                        
+                        gameArea.scrollTo({
+                            left: Math.max(0, scrollPosition),
+                            behavior: 'smooth'
+                        });
+                    }
                 }
                 
                 // Highlight current milestone
@@ -696,6 +715,15 @@
             if (character) {
                 character.style.left = '60px';
                 character.style.transition = 'left 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                
+                // Scroll back to the beginning
+                const gameArea = document.getElementById('game-area');
+                if (gameArea) {
+                    gameArea.scrollTo({
+                        left: 0,
+                        behavior: 'smooth'
+                    });
+                }
             }
             
             // Reset all milestones to original state
