@@ -130,35 +130,7 @@
             }
             
             #game-area {
-                max-width: 100% !important;
-                min-width: 380px !important;
                 height: 200px !important;
-                overflow-x: auto !important;
-            }
-            
-            #progress-path {
-                left: 40px !important;
-                right: 60px !important;
-            }
-            
-            .milestone {
-                font-size: 9px !important;
-                padding: 4px 6px !important;
-                width: 50px !important;
-                white-space: nowrap !important;
-            }
-            
-            #milestone-1 { left: 100px !important; }
-            #milestone-2 { left: 160px !important; }
-            #milestone-3 { left: 220px !important; }
-            #milestone-4 { left: 280px !important; }
-            #milestone-5 { left: 340px !important; }
-            
-            #character {
-                width: 30px !important;
-                height: 30px !important;
-                font-size: 16px !important;
-                left: 40px !important;
             }
             
             #journey-title {
@@ -208,34 +180,32 @@
             
             /* Even smaller positioning for portrait mode */
             #game-area {
-                min-width: 360px !important;
                 height: 180px !important;
             }
-            
-            #progress-path {
-                left: 20px !important;
-                right: 40px !important;
-            }
-            
-            .milestone {
-                font-size: 8px !important;
-                padding: 3px 5px !important;
-                width: 50px !important;
-                overflow: visible !important;
-            }
-            
-            #milestone-1 { left: 90px !important; }
-            #milestone-2 { left: 170px !important; }
-            #milestone-3 { left: 250px !important; }
-            #milestone-4 { left: 330px !important; }
-            #milestone-5 { left: 410px !important; }
-            
-            #character {
-                width: 25px !important;
-                height: 25px !important;
-                font-size: 14px !important;
-                left: 20px !important;
-            }
+        }
+        
+        /* Game Area Wrapper */
+        #game-area {
+            scrollbar-width: thin;
+            scrollbar-color: #7fb3d3 #f0f8ff;
+        }
+        
+        #game-area::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        #game-area::-webkit-scrollbar-track {
+            background: #f0f8ff;
+            border-radius: 4px;
+        }
+        
+        #game-area::-webkit-scrollbar-thumb {
+            background: #7fb3d3;
+            border-radius: 4px;
+        }
+        
+        #game-area::-webkit-scrollbar-thumb:hover {
+            background: #5a9bc4;
         }
         
         /* Mobile/Desktop Instruction Display */
@@ -341,45 +311,6 @@
             }
         }
         
-        /* About & Contact Mobile Responsive */
-        @media (max-width: 768px) {
-            .about, .contact {
-                padding: 50px 0 !important;
-            }
-            
-            .about .container, .contact .container {
-                padding: 0 20px !important;
-            }
-            
-            .section-title {
-                font-size: 2rem !important;
-                margin-bottom: 2rem !important;
-            }
-            
-            .about-content p, .contact-content p {
-                font-size: 1rem !important;
-                margin-bottom: 1.5rem !important;
-            }
-            
-            .contact-item {
-                font-size: 1rem !important;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .about, .contact {
-                padding: 40px 0 !important;
-            }
-            
-            .section-title {
-                font-size: 1.75rem !important;
-            }
-            
-            .about-content p, .contact-content p {
-                font-size: 0.95rem !important;
-            }
-        }
-        
         /* HighTicketHer Mobile Responsive */
         @media (max-width: 768px) {
             .hightickether-grid {
@@ -453,56 +384,58 @@
                     </div>
                     
                     <!-- Game Area -->
-                    <div id="game-area" style="position: relative; height: 180px; background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%); border: 2px solid #d1e7dd; border-radius: 12px; overflow: hidden; cursor: pointer; box-shadow: 0 4px 20px rgba(209, 231, 221, 0.3);">
-                        <!-- Progress Path -->
-                        <div id="progress-path" style="position: absolute; top: 70px; left: 60px; right: 60px; height: 3px; background: linear-gradient(90deg, #a8d8ea 0%, #7fb3d3 100%); border-radius: 2px; z-index: 1;"></div>
+                    <div id="game-area" style="position: relative; height: 180px; background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%); border: 2px solid #d1e7dd; border-radius: 12px; overflow-x: auto; overflow-y: hidden; cursor: pointer; box-shadow: 0 4px 20px rgba(209, 231, 221, 0.3);">
+                        <div style="position: relative; min-width: 550px; height: 100%;">
+                            <!-- Progress Path -->
+                            <div id="progress-path" style="position: absolute; top: 70px; left: 60px; right: 60px; height: 3px; background: linear-gradient(90deg, #a8d8ea 0%, #7fb3d3 100%); border-radius: 2px; z-index: 1;"></div>
+                            
+                            <!-- Character -->
+                            <div id="character" style="position: absolute; left: 60px; top: 50px; width: 35px; height: 35px; background: linear-gradient(135deg, #ffb3ba 0%, #ff9a9e 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 12px rgba(255, 179, 186, 0.4); cursor: pointer; z-index: 10;">🚀</div>
+                            
+                            <!-- Implementation Milestones -->
+                            <div id="milestone-1" class="milestone" style="position: absolute; left: 120px; top: 50px; background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); color: #5a6c7d; padding: 6px 10px; border-radius: 6px; font-size: 10px; font-weight: 600; text-align: center; width: 60px; transition: all 0.3s ease; border: 1px solid #d1e7dd;" title="🔍 Learning about client goals and requirements">🔍 Discovery</div>
+                            <div id="milestone-2" class="milestone" style="position: absolute; left: 200px; top: 50px; background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); color: #5a6c7d; padding: 6px 10px; border-radius: 6px; font-size: 10px; font-weight: 600; text-align: center; width: 60px; transition: all 0.3s ease; border: 1px solid #d1e7dd;" title="⚙️ Setting up the platform and integrations">⚙️ Config</div>
+                            <div id="milestone-3" class="milestone" style="position: absolute; left: 280px; top: 50px; background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); color: #5a6c7d; padding: 6px 10px; border-radius: 6px; font-size: 10px; font-weight: 600; text-align: center; width: 60px; transition: all 0.3s ease; border: 1px solid #d1e7dd;" title="🧪 Validating functionality and user acceptance">🧪 Testing</div>
+                            <div id="milestone-4" class="milestone" style="position: absolute; left: 360px; top: 50px; background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); color: #5a6c7d; padding: 6px 10px; border-radius: 6px; font-size: 10px; font-weight: 600; text-align: center; width: 60px; transition: all 0.3s ease; border: 1px solid #d1e7dd;" title="🎓 Teaching the team how to use the system">🎓 Training</div>
+                            <div id="milestone-5" class="milestone" style="position: absolute; left: 440px; top: 50px; background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); color: #5a6c7d; padding: 6px 10px; border-radius: 6px; font-size: 10px; font-weight: 600; text-align: center; width: 60px; transition: all 0.3s ease; border: 1px solid #d1e7dd;" title="🚀 Going live and celebrating success!">🚀 Launch</div>
+                            
+                            <!-- Score -->
+                            <div style="position: absolute; top: 10px; left: 10px; background: linear-gradient(135deg, #a8d8ea 0%, #7fb3d3 100%); color: white; padding: 8px 12px; border-radius: 6px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 12px rgba(127, 179, 211, 0.3);">
+                                Phase: <span id="score">0</span>/5
+                            </div>
+                            
+                            <!-- Instructions -->
+                            <div style="position: absolute; top: 10px; right: 10px; background: linear-gradient(135deg, #a8d8ea 0%, #7fb3d3 100%); color: white; padding: 8px 12px; border-radius: 6px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 12px rgba(127, 179, 211, 0.3);">
+                                <span class="desktop-instruction">SPACE to advance</span>
+                                <span class="mobile-instruction" style="display: none;">Tap to advance</span>
+                            </div>
+                            
+                            <!-- Mobile Arrow Button -->
+                            <button id="mobile-advance-btn" onclick="flap()" style="position: absolute; top: 10px; right: 180px; background: linear-gradient(135deg, #a8d8ea 0%, #7fb3d3 100%); color: white; border: none; padding: 8px 12px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: none; box-shadow: 0 4px 12px rgba(127, 179, 211, 0.3);">
+                                →
+                            </button>
+                            
+                            <!-- Retry Button -->
+                            <button id="retry-btn" onclick="restartJourney()" style="position: absolute; top: 10px; right: 180px; background: linear-gradient(135deg, #a8d8ea 0%, #7fb3d3 100%); color: white; border: none; padding: 8px 12px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: none; box-shadow: 0 4px 12px rgba(127, 179, 211, 0.3);">
+                                🔄 Retry
+                            </button>
+                            
+                            <!-- Progress Bar -->
+                            <div style="position: absolute; bottom: 10px; left: 10px; right: 10px; height: 8px; background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); border-radius: 6px; overflow: hidden; border: 1px solid #d1e7dd;">
+                                <div id="progress" style="height: 100%; background: linear-gradient(90deg, #a8d8ea 0%, #7fb3d3 100%); width: 0%; transition: width 0.3s ease;"></div>
+                            </div>
                         
-                        <!-- Character -->
-                        <div id="character" style="position: absolute; left: 60px; top: 50px; width: 35px; height: 35px; background: linear-gradient(135deg, #ffb3ba 0%, #ff9a9e 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 12px rgba(255, 179, 186, 0.4); cursor: pointer; z-index: 10;">🚀</div>
-                        
-                        <!-- Implementation Milestones -->
-                        <div id="milestone-1" class="milestone" style="position: absolute; left: 120px; top: 50px; background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); color: #5a6c7d; padding: 6px 10px; border-radius: 6px; font-size: 10px; font-weight: 600; text-align: center; width: 60px; transition: all 0.3s ease; border: 1px solid #d1e7dd;" title="🔍 Learning about client goals and requirements">🔍 Discovery</div>
-                        <div id="milestone-2" class="milestone" style="position: absolute; left: 200px; top: 50px; background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); color: #5a6c7d; padding: 6px 10px; border-radius: 6px; font-size: 10px; font-weight: 600; text-align: center; width: 60px; transition: all 0.3s ease; border: 1px solid #d1e7dd;" title="⚙️ Setting up the platform and integrations">⚙️ Config</div>
-                        <div id="milestone-3" class="milestone" style="position: absolute; left: 280px; top: 50px; background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); color: #5a6c7d; padding: 6px 10px; border-radius: 6px; font-size: 10px; font-weight: 600; text-align: center; width: 60px; transition: all 0.3s ease; border: 1px solid #d1e7dd;" title="🧪 Validating functionality and user acceptance">🧪 Testing</div>
-                        <div id="milestone-4" class="milestone" style="position: absolute; left: 360px; top: 50px; background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); color: #5a6c7d; padding: 6px 10px; border-radius: 6px; font-size: 10px; font-weight: 600; text-align: center; width: 60px; transition: all 0.3s ease; border: 1px solid #d1e7dd;" title="🎓 Teaching the team how to use the system">🎓 Training</div>
-                        <div id="milestone-5" class="milestone" style="position: absolute; left: 440px; top: 50px; background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); color: #5a6c7d; padding: 6px 10px; border-radius: 6px; font-size: 10px; font-weight: 600; text-align: center; width: 60px; transition: all 0.3s ease; border: 1px solid #d1e7dd;" title="🚀 Going live and celebrating success!">🚀 Launch</div>
-                        
-                        <!-- Score -->
-                        <div style="position: absolute; top: 10px; left: 10px; background: linear-gradient(135deg, #a8d8ea 0%, #7fb3d3 100%); color: white; padding: 8px 12px; border-radius: 6px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 12px rgba(127, 179, 211, 0.3);">
-                            Phase: <span id="score">0</span>/5
-                        </div>
-                        
-                        <!-- Instructions -->
-                        <div style="position: absolute; top: 10px; right: 10px; background: linear-gradient(135deg, #a8d8ea 0%, #7fb3d3 100%); color: white; padding: 8px 12px; border-radius: 6px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 12px rgba(127, 179, 211, 0.3);">
-                            <span class="desktop-instruction">SPACE to advance</span>
-                            <span class="mobile-instruction" style="display: none;">Tap to advance</span>
-                        </div>
-                        
-                        <!-- Mobile Arrow Button -->
-                        <button id="mobile-advance-btn" onclick="flap()" style="position: absolute; top: 10px; right: 180px; background: linear-gradient(135deg, #a8d8ea 0%, #7fb3d3 100%); color: white; border: none; padding: 8px 12px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: none; box-shadow: 0 4px 12px rgba(127, 179, 211, 0.3);">
-                            →
-                        </button>
-                        
-                        <!-- Retry Button -->
-                        <button id="retry-btn" onclick="restartJourney()" style="position: absolute; top: 10px; right: 180px; background: linear-gradient(135deg, #a8d8ea 0%, #7fb3d3 100%); color: white; border: none; padding: 8px 12px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: none; box-shadow: 0 4px 12px rgba(127, 179, 211, 0.3);">
-                            🔄 Retry
-                        </button>
-                        
-                        <!-- Progress Bar -->
-                        <div style="position: absolute; bottom: 10px; left: 10px; right: 10px; height: 8px; background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); border-radius: 6px; overflow: hidden; border: 1px solid #d1e7dd;">
-                            <div id="progress" style="height: 100%; background: linear-gradient(90deg, #a8d8ea 0%, #7fb3d3 100%); width: 0%; transition: width 0.3s ease;"></div>
-                        </div>
-                    
-                    <!-- Ground -->
-                        <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 25px; background: linear-gradient(135deg, #d1e7dd 0%, #b8d4f0 100%);"></div>
-                        
-                        <!-- Celebration Animation -->
-                        <div id="celebration" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 20; display: none;">
-                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 36px; animation: celebrate 2s ease-out;">🎉</div>
-                            <div style="position: absolute; top: 30%; left: 30%; font-size: 18px; animation: confetti 1.5s ease-out 0.2s;">✨</div>
-                            <div style="position: absolute; top: 40%; right: 30%; font-size: 18px; animation: confetti 1.5s ease-out 0.4s;">🎊</div>
-                            <div style="position: absolute; top: 60%; left: 20%; font-size: 18px; animation: confetti 1.5s ease-out 0.6s;">🌟</div>
-                            <div style="position: absolute; top: 70%; right: 20%; font-size: 18px; animation: confetti 1.5s ease-out 0.8s;">🎈</div>
+                            <!-- Ground -->
+                            <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 25px; background: linear-gradient(135deg, #d1e7dd 0%, #b8d4f0 100%);"></div>
+                            
+                            <!-- Celebration Animation -->
+                            <div id="celebration" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 20; display: none;">
+                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 36px; animation: celebrate 2s ease-out;">🎉</div>
+                                <div style="position: absolute; top: 30%; left: 30%; font-size: 18px; animation: confetti 1.5s ease-out 0.2s;">✨</div>
+                                <div style="position: absolute; top: 40%; right: 30%; font-size: 18px; animation: confetti 1.5s ease-out 0.4s;">🎊</div>
+                                <div style="position: absolute; top: 60%; left: 20%; font-size: 18px; animation: confetti 1.5s ease-out 0.6s;">🌟</div>
+                                <div style="position: absolute; top: 70%; right: 20%; font-size: 18px; animation: confetti 1.5s ease-out 0.8s;">🎈</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -657,17 +590,9 @@
             gameRunning = true;
             character = document.getElementById('character');
             
-            // Set initial character position based on screen size
+            // Set initial character position - consistent across all devices
             if (character) {
-                let startPosition;
-                if (window.innerWidth <= 480) {
-                    startPosition = '20px'; // Portrait mobile
-                } else if (window.innerWidth <= 768) {
-                    startPosition = '40px'; // Landscape mobile/tablet
-                } else {
-                    startPosition = '60px'; // Desktop
-                }
-                character.style.left = startPosition;
+                character.style.left = '60px';
             }
             
             updatePhaseDisplay();
@@ -701,16 +626,8 @@
                 
                 // Enhanced character movement with jump animation
                 if (character) {
-                    // Different positions for portrait mobile, landscape mobile, and desktop
-                    let milestonePositions;
-                    if (window.innerWidth <= 480) {
-                        milestonePositions = [20, 90, 170, 250, 330, 410]; // Portrait mobile - spread out
-                    } else if (window.innerWidth <= 768) {
-                        milestonePositions = [40, 100, 160, 220, 280, 340]; // Landscape mobile/tablet
-                    } else {
-                        milestonePositions = [60, 120, 200, 280, 360, 440]; // Desktop
-                    }
-                    
+                    // Consistent positions across all devices
+                    const milestonePositions = [60, 120, 200, 280, 360, 440];
                     const newPosition = milestonePositions[Math.min(currentPhase - 1, milestonePositions.length - 1)];
                     
                     // Add jump animation
@@ -775,17 +692,9 @@
             currentPhase = 1;
             gameRunning = true;
             
-            // Reset character position based on screen size
+            // Reset character position - consistent across all devices
             if (character) {
-                let startPosition;
-                if (window.innerWidth <= 480) {
-                    startPosition = '20px'; // Portrait mobile
-                } else if (window.innerWidth <= 768) {
-                    startPosition = '40px'; // Landscape mobile/tablet
-                } else {
-                    startPosition = '60px'; // Desktop
-                }
-                character.style.left = startPosition;
+                character.style.left = '60px';
                 character.style.transition = 'left 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
             }
             
@@ -905,16 +814,8 @@
         // Handle screen rotation and resizing
         window.addEventListener('resize', function() {
             if (character && gameRunning) {
-                // Update character position based on current phase and screen size
-                let milestonePositions;
-                if (window.innerWidth <= 480) {
-                    milestonePositions = [20, 90, 170, 250, 330, 410]; // Portrait mobile - spread out
-                } else if (window.innerWidth <= 768) {
-                    milestonePositions = [40, 100, 160, 220, 280, 340]; // Landscape mobile/tablet
-                } else {
-                    milestonePositions = [60, 120, 200, 280, 360, 440]; // Desktop
-                }
-                
+                // Maintain character position - consistent across all devices
+                const milestonePositions = [60, 120, 200, 280, 360, 440];
                 const newPosition = milestonePositions[Math.min(currentPhase - 1, milestonePositions.length - 1)];
                 character.style.left = newPosition + 'px';
             }
